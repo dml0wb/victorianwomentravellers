@@ -61,7 +61,6 @@
       </label>
       <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
       <input type="hidden" name="_subject" id="cf-subject-hidden" value="Rediscovering Victorian Women Travellers">
-      <input type="hidden" name="_cc" id="cf-cc">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_next" value="https://dml0wb.github.io/victorianwomentravellers/contact.html?sent=1">
@@ -89,9 +88,7 @@
     var form = document.getElementById('contact-form');
     form.addEventListener('submit', function () {
       var u1 = ['william', 'bainbridge'].join('') + '@' + ['gmail', 'com'].join('.');
-      var u2 = ['r', 'chalfen'].join('.') + '@' + ['herts', 'ac', 'uk'].join('.');
       form.action = 'https://formsubmit.co/' + u1;
-      document.getElementById('cf-cc').value = u2;
       var subj = document.getElementById('cf-subject').value.trim();
       if (subj) document.getElementById('cf-subject-hidden').value = 'Travellers website: ' + subj;
     });
