@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rediscovering Victorian Women Travellers</title>
+<meta name="description" content="Recovering the Victorian artist-travellers Margaret Thomas and Henrietta Pilkington – a project of the University of Hertfordshire and North Hertfordshire Museum.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Cabin:wght@500;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<meta property="og:title" content="Rediscovering Victorian Women Travellers">
+<meta property="og:description" content="Margaret Thomas, Henrietta Pilkington and the Victorian journey to Palestine and Syria – a University of Hertfordshire and North Hertfordshire Museum project.">
+<meta property="og:image" content="https://dml0wb.github.io/victorianwomentravellers/assets/nhm-the-artist.jpg">
+<meta property="og:url" content="https://dml0wb.github.io/victorianwomentravellers/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="styles.css?v=23">
+</head>
+<body>
+
+<nav class="site">
+  <div class="wrap">
+    <a class="nav-brand" href="index.html">Victorian Women Travellers</a>
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+    <a href="#" class="active">Home</a>
+    <a href="artists.html">The Artists</a>
+    <a href="#journey">The Journey</a>
+    <a href="#paintings">The Paintings</a>
+    <a href="project.html">The Project</a>
+    <a href="#booklet">The Booklet</a>
+    <a href="#team">Team</a>
+    <a href="visit.html">Visit</a>
+    <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero-visual">
+  <img src="assets/hero-the-artist.jpg" alt="Margaret Thomas, The Artist - a woman at work at her easel, thought to be a self-portrait">
+  <p class="hero-credit">Margaret Thomas, The Artist, c. 1881&ndash;82</p>
+  <div class="hero-text">
+    <div class="wrap">
+      <h1>Rediscovering Victorian Women Travellers</h1>
+      <p class="kicker">University of Hertfordshire &middot; North Hertfordshire Museum</p>
+      <p class="subtitle">Margaret Thomas, Henrietta Pilkington and the Victorian journey to Palestine and Syria</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section class="intro">
+  <div class="lead measure">
+    <p>In a case in North Hertfordshire Museum hangs a painting of a woman at work: palette and brushes in hand, a portrait taking shape on the easel, finished and unfinished canvases crowding round her. The museum believes it is a self-portrait. The painter is Margaret Thomas &ndash; artist, sculptor, poet and travel writer, who trained in Melbourne and London, exhibited at the Royal Academy, and then, in her fifties, packed a paint-box onto a horse and spent the better part of two years riding through Palestine and Syria.</p>
+    <p>She did not travel alone. Beside her, on shipboard and horseback, in tents and hospices, was Henrietta Pilkington &ndash; her companion of some sixty years, and a painter in her own right.</p>
+  </div>
+  <div class="actions">
+    <a class="btn btn-primary" href="#journey">Explore the journey</a>
+    <a class="btn btn-secondary" href="#booklet">About the booklet</a>
+  </div>
+</section>
+
+<section id="artists">
+  <div class="split">
+    <div>
+      <h2>Two artists, one journey</h2>
+      <p>The museum holds them together: twenty-seven oil paintings by Thomas, and more than eighty watercolours by Pilkington, gathered from a shared lifetime of looking.</p>
+      <p>Thomas wrote about the journey. Her book, <em>Two Years in Palestine and Syria</em>, appeared in 1900 with sixteen colour plates reproduced from her own paintings &ndash; and three of the originals are in this collection. Pilkington left no book, no diary, no letters that have yet come to light. What she left instead is a portfolio of small, rapid watercolours, made on the spot at Jerusalem, Tiberias, Hebron and Baalbek. If Thomas gives the journey its words, Pilkington gives it a second pair of eyes.</p>
+      <div class="actions" style="margin-top: var(--sp-lg)">
+        <a class="btn btn-secondary" href="artists.html">Read their lives</a>
+      </div>
+    </div>
+    <figure class="painting">
+      <img src="assets/hero-the-artist.jpg" alt="Margaret Thomas, The Artist - a woman at work at her easel, thought to be a self-portrait">
+      <figcaption>Margaret Thomas, <em>The Artist</em>, c. 1881&ndash;82, oil on canvas. North Hertfordshire Museum, 1930.5507. Thought to be a self-portrait.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="journey">
+  <h2>The Journey</h2>
+  <p class="measure">From Croydon and Melbourne to Rome and Pimlico, through the streets of Jerusalem and the ruins of Baalbek, and home at last to a cottage at Norton, on the edge of Letchworth &ndash; where their story and their pictures became part of Hertfordshire&rsquo;s own. Float over the map&rsquo;s stations to see the places through the two women&rsquo;s eyes &ndash; or click a date on the timeline below and the map will take you there.</p>
+  <div class="map-controls">
+    <button class="btn btn-secondary btn-sm" id="view-east" type="button">Europe &amp; the East</button>
+    <button class="btn btn-secondary btn-sm" id="view-world" type="button">The whole journey</button>
+  </div>
+  <div id="map"></div>
+  <div class="timeline">
+    <div class="station-h" data-place="Croydon">
+      <p class="place">Croydon</p>
+      <p class="date">1842</p>
+      <p>Margaret Thomas was born Margaret Sarah Cook on 23 December 1842.</p>
+    </div>
+    <div class="station-h" data-place="Melbourne">
+      <p class="place">Melbourne</p>
+      <p class="date">1852</p>
+      <p>The family emigrates; still a child, she studies sculpture under Charles Summers &ndash; among the very first women in the colony of Victoria to do so.</p>
+    </div>
+    <div class="station-h" data-place="Rome">
+      <p class="place">Rome &amp; London</p>
+      <p class="date">from 1867</p>
+      <p>South Kensington, two years in Rome, the Academy Schools &ndash; and in 1872 the Academy&rsquo;s silver medal for modelling, the first won by a woman.</p>
+    </div>
+    <div class="station-h" data-place="Brittany">
+      <p class="place">Brittany</p>
+      <p class="date">1888</p>
+      <p>In the winter of 1888 the two women give up their London life and go abroad &ndash; first to Brittany, then wherever the next book leads.</p>
+    </div>
+    <div class="station-h" data-place="Spain">
+      <p class="place">Spain &amp; Tangier</p>
+      <p class="date">by 1892</p>
+      <p>&ldquo;&hellip;we, two lady artists, decided to risk all this, and try with our moderate means to accomplish what the rich only usually undertake.&rdquo;</p>
+    </div>
+    <div class="station-h" data-place="Athens">
+      <p class="place">Athens</p>
+      <p class="date">1893</p>
+      <p>Pilkington dates her watercolour of the Acropolis in her own hand &ndash; one entry in a thirty-year visual diary.</p>
+    </div>
+    <div class="station-h" data-place="Sicily">
+      <p class="place">Sicily</p>
+      <p class="date">1893&ndash;96</p>
+      <p>Taormina and the island, painted across repeated visits in the 1890s.</p>
+    </div>
+    <div class="station-h" data-place="Jerusalem">
+      <p class="place">Palestine &amp; Syria</p>
+      <p class="date">1895&ndash;96</p>
+      <p>The better part of two years on horseback: Jerusalem, Tiberias, Hebron, Baalbek &ndash; painted by both women, each in her own hand.</p>
+    </div>
+    <div class="station-h" data-place="Karnak">
+      <p class="place">Cairo &amp; Karnak</p>
+      <p class="date">1896</p>
+      <p>Karnak in January 1896, dated on the spot.</p>
+    </div>
+    <div class="station-h" data-place="Norton">
+      <p class="place">Norton, Letchworth</p>
+      <p class="date">home</p>
+      <p>The journey ends in Hertfordshire, and the pictures become the county&rsquo;s own.</p>
+    </div>
+  </div>
+</section>
+
+<section id="paintings">
+  <h2>The Paintings</h2>
+
+  <h3 style="margin-top: var(--sp-lg)">Margaret Thomas &ndash; oils</h3>
+  <div class="gallery">
+    <figure class="painting">
+      <img src="assets/nhm-inside-damascus-gate.jpg" alt="Margaret Thomas, Inside Damascus Gate">
+      <figcaption>Margaret Thomas, <em>Inside Damascus Gate</em>, c. 1895&ndash;98, oil. North Hertfordshire Museum, 1930.5516.</figcaption>
+    </figure>
+    <figure class="painting">
+      <img src="assets/nhm-jaffa.jpg" alt="Margaret Thomas, Jaffa">
+      <figcaption>Margaret Thomas, <em>Jaffa</em>, undated, oil. North Hertfordshire Museum, 1930.5520.</figcaption>
+    </figure>
+    <figure class="painting">
+      <img src="assets/nhm-market-jerusalem.jpg" alt="Margaret Thomas, Market, Jerusalem">
+      <figcaption>Margaret Thomas, <em>Market, Jerusalem</em>, undated, oil. North Hertfordshire Museum, 1930.5521.</figcaption>
+    </figure>
+    <figure class="painting">
+      <img src="assets/nhm-girl-of-jerusalem.jpg" alt="Margaret Thomas, Girl of Jerusalem">
+      <figcaption>Margaret Thomas, <em>Girl of Jerusalem</em>, 1897, oil. North Hertfordshire Museum, 1930.5513.</figcaption>
+    </figure>
+    <figure class="painting">
+      <img src="assets/nhm-woman-of-siloam.jpg" alt="Margaret Thomas, A Woman of Siloam, Carrying Her Baby">
+      <figcaption>Margaret Thomas, <em>A Woman of Siloam, Carrying Her Baby</em>, 1897, oil. North Hertfordshire Museum, 1930.5508.</figcaption>
+    </figure>
+    <figure class="painting">
+      <img src="assets/nhm-patriarch.jpg" alt="Margaret Thomas, The Late Patriarch of Syria">
+      <figcaption>Margaret Thomas, <em>The Late Patriarch of Syria</em>, c. 1895&ndash;97, oil. North Hertfordshire Museum, 1930.5511.</figcaption>
+    </figure>
+      <figure class="painting">
+      <img src="assets/nhm-old-cottage.jpg" alt="Margaret Thomas, Old Cottage">
+      <figcaption>Margaret Thomas, <em>Old Cottage</em>, undated, oil. North Hertfordshire Museum, 1930.5517.</figcaption>
+    </figure>
+</div>
+
+  <h3 style="margin-top: var(--sp-xl)">Henrietta Pilkington &ndash; watercolours</h3>
+  <div class="gallery">
+    <figure class="painting">
+      <img src="assets/nhm-pilkington-damascus-gate.jpg" alt="Henrietta Pilkington, Damascus Gate, Jerusalem, 1895">
+      <figcaption>Henrietta Pilkington, <em>Damascus Gate, Jerusalem</em>, 1895, watercolour. North Hertfordshire Museum, 1927.4284.</figcaption>
+    </figure>
+    <figure class="painting">
+      <img src="assets/nhm-tiberias-daylight.jpg" alt="Henrietta Pilkington, Tiberias 1895, Daylight">
+      <figcaption>Henrietta Pilkington, <em>Tiberias 1895, Daylight</em>, watercolour. North Hertfordshire Museum, 1930.5477.75.</figcaption>
+    </figure>
+    <figure class="painting">
+      <img src="assets/nhm-tiberias-twilight.jpg" alt="Henrietta Pilkington, Tiberias 1895, Twilight">
+      <figcaption>Henrietta Pilkington, <em>Tiberias 1895, Twilight</em>, watercolour. North Hertfordshire Museum, 1930.5477.80.</figcaption>
+    </figure>
+    <figure class="painting">
+      <img src="assets/nhm-mahomet.jpg" alt="Henrietta Pilkington, Mahomet, Jerusalem 1895">
+      <figcaption>Henrietta Pilkington, <em>Mahomet, Jerusalem 1895</em>, watercolour. North Hertfordshire Museum, 1930.5477.79.</figcaption>
+    </figure>
+    <figure class="painting">
+      <img src="assets/nhm-paria-dogs.jpg" alt="Henrietta Pilkington, 'Paria' dogs, Jerusalem">
+      <figcaption>Henrietta Pilkington, <em>&lsquo;Paria&rsquo; dogs, Jerusalem</em>, undated, watercolour. North Hertfordshire Museum, 1930.5477.71.</figcaption>
+    </figure>
+  </div>
+
+  <p class="measure" style="margin-top: var(--sp-xl)">The museum is digitising more of the collection as the project runs; new paintings join its online catalogue &ndash; and this gallery &ndash; as they are completed.</p>
+  <div class="actions" style="margin-top: var(--sp-md)">
+    <a class="btn btn-secondary" href="https://northhertsmuseum.org/north-hertfordshire-museum/collections/" target="_blank" rel="noopener">See newly digitised paintings</a>
+  </div>
+</section>
+
+<section id="looking">
+  <h2>Ways of looking</h2>
+  <div class="measure">
+    <p>Thomas and Pilkington were not the first British artists on that Syrian ground. Frederic Leighton &ndash; President of the Royal Academy &ndash; had sketched quietly at Damascus in 1873, keeping his East private, folded into a timeless classical dreamscape. Amelia B. Edwards painted the ruins of Baalbek from direct observation in May 1874, and built a very public, campaigning authority on such dated records. Twenty-one years later the two women reached the same stones &ndash; and simply lived there, painting the present as they found it: markets, street dogs, people, weather. Three ways of looking at the same inherited landscape: possession, performance and participation.</p>
+    <p>Why does this matter? Since Edward Said&rsquo;s <em>Orientalism</em> (1978), historians have argued about how European art and writing imagined &ldquo;the East&rdquo; &ndash; and whether women travellers, outsiders in their own profession, saw it differently. One tempting answer has been that they resisted the imperial gaze. The Hitchin collection is interesting precisely because it refuses that comfort.</p>
+    <p>Take Thomas at her best. She prized the lived present over the famous monument, withheld easy verdicts &ndash; the people of Siloam, reputed thieves, &ldquo;are probably no worse than their neighbours&rdquo; &ndash; and turned her scepticism on her own civilisation as readily as on anyone else&rsquo;s. She even made a principle of patient looking:</p>
+    <blockquote>
+      <p>&ldquo;The last and truest impression which in time replaces the glamour of the first is, if less romantic, truer, and therefore more permanent.&rdquo;</p>
+      <cite>Margaret Thomas, <em>Two Years in Palestine and Syria</em> (1900)</cite>
+    </blockquote>
+    <p>And yet the same book reaches, in other moods, for &ldquo;the Oriental pageant&rdquo;, recoils from the prospect of a modernising, &ldquo;Frenchified Arab town&rdquo;, and repeats the racial commonplaces of its period without a blush. These are not two separable Thomases, one to admire and one to excuse: they are a single Victorian eye, humane and prejudiced in the same glance. That unresolved tension &ndash; not heroism, not villainy &ndash; is what makes her record genuinely valuable evidence in the Orientalism debate.</p>
+    <p>Pilkington&rsquo;s contribution is quieter and, in its way, rarer: more than eighty watercolours made rapidly on the spot across thirty years, never published, never exhibited, never composed for a public that expected the East as spectacle. A visual diary kept by a woman who sought no audience for it &ndash; and so a record with very little reason to perform.</p>
+    <p>Baalbek is where the threads cross: Edwards&rsquo;s dated sheets of 1874, Pilkington&rsquo;s watercolours of the temples, Thomas&rsquo;s plates for a 1908 book on Damascus and Palmyra. One ruin, three witnesses, a generation apart. <a href="artists.html">Meet the two artists</a> or <a href="#journey">follow the road that took them there</a>.</p>
+  </div>
+</section>
+
+<section id="project">
+  <h2>The Project</h2>
+  <div class="measure">
+    <p>Rediscovering Victorian Women Travellers is a co-production between the University of Hertfordshire and North Hertfordshire Museum, funded by an AHRC Impact Acceleration Account Co-Production Heritage Award. Alongside this website and the booklet, it is producing an exhibition, new museum interpretation, public talks and schools resources &ndash; with students and museum staff working side by side.</p>
+    <div class="actions" style="margin-top: var(--sp-lg)">
+      <a class="btn btn-secondary" href="project.html">Aims and objectives</a>
+    </div>
+  </div>
+</section>
+
+<section id="booklet">
+  <h2>The Booklet</h2>
+  <div class="measure">
+    <p><em>Two Seasoned Travellers: Margaret Thomas, Henrietta Pilkington and the Victorian journey to Palestine and Syria</em> follows the two women out and back &ndash; and tells the story of how their pictures came to Hertfordshire.</p>
+    <p>Written by William Bainbridge and Helen Esfandiary, with a preface by Ros Allwood, it is produced as part of an AHRC Impact Acceleration Account co-production project between the University of Hertfordshire and North Hertfordshire Museum.</p>
+    <div class="actions" style="margin-top: var(--sp-lg)">
+      <span class="btn btn-disabled">Download the booklet (PDF) &ndash; available soon</span>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <h2>Team</h2>
+  <div class="team">
+    <div class="person">
+      <h3><a href="https://researchprofiles.herts.ac.uk/en/persons/william-bainbridge/" target="_blank" rel="noopener" style="color: inherit;">William Bainbridge</a></h3>
+      <p class="role">Project lead</p>
+      <p class="affil">History, University of Hertfordshire</p>
+    </div>
+    <div class="person">
+      <h3>Helen Esfandiary</h3>
+      <p class="role">Research associate</p>
+      <p class="affil">History, University of Hertfordshire</p>
+    </div>
+    <div class="person">
+      <h3>Ros Allwood</h3>
+      <p class="role">Cultural Services Manager</p>
+      <p class="affil">North Hertfordshire Museum</p>
+    </div>
+    <div class="person">
+      <h3>Rosa Chalfen</h3>
+      <p class="role">Project coordinator</p>
+      <p class="affil">Policy &amp; Community Engagement Officer, University of Hertfordshire</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Rediscovering Victorian Women Travellers is a collaboration between the University of Hertfordshire and <a href="https://northhertsmuseum.org/">North Hertfordshire Museum</a>, supported by an AHRC Impact Acceleration Account Co-Production Heritage Award.</p>
+    <p>Paintings reproduced courtesy of <a href="https://northhertsmuseum.org/">North Hertfordshire Museum</a>.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  var map = L.map('map', { scrollWheelZoom: false, renderer: L.svg({ padding: 3 }) });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 14
+  }).addTo(map);
+
+  // Stations in journey order. img/caption only where a painting of the place is held.
+  var stations = [
+    { key: 'Croydon', name: 'Croydon', date: '1842', lat: 51.372, lng: -0.098 },
+    { key: 'Melbourne', name: 'Melbourne', date: '1852', lat: -37.814, lng: 144.963,
+      img: 'assets/nhm-summers.jpg', caption: 'Margaret Thomas, Portrait of Charles Summers – her Melbourne teacher, a maquette of his Burke and Wills monument over his shoulder. NHM 1930.5509.' },
+    { key: 'Rome', name: 'Rome', date: 'from 1867', lat: 41.893, lng: 12.483 },
+    { key: 'London', name: 'London', date: '1871', lat: 51.489, lng: -0.135,
+      img: 'assets/nhm-miss-pilkington.jpg', caption: 'Margaret Thomas, Miss Pilkington, 1874 – painted the year six of her portraits hung at the Academy. NHM 1930.5510.' },
+    { key: 'Brittany', name: 'Brittany', date: '1888', lat: 48.2, lng: -2.93 },
+    { key: 'Spain', name: 'Madrid', date: 'by 1892', lat: 40.417, lng: -3.703 },
+    { key: 'Tangier', name: 'Tangier', date: 'by 1892', lat: 35.767, lng: -5.8 },
+    { key: 'Athens', name: 'Athens', date: '1893', lat: 37.972, lng: 23.726 },
+    { key: 'Sicily', name: 'Taormina', date: '1893-96', lat: 37.852, lng: 15.287 },
+    { key: 'Jaffa', name: 'Jaffa', date: '1895', lat: 32.05, lng: 34.75,
+      img: 'assets/nhm-jaffa.jpg', caption: 'Margaret Thomas, Jaffa. NHM 1930.5520.' },
+    { key: 'Jerusalem', name: 'Jerusalem', date: '1895', lat: 31.777, lng: 35.23,
+      img: 'assets/nhm-inside-damascus-gate.jpg', caption: 'Margaret Thomas, Inside Damascus Gate. NHM 1930.5516.' },
+    { key: 'Hebron', name: 'Hebron', date: '1895', lat: 31.53, lng: 35.095 },
+    { key: 'Tiberias', name: 'Tiberias', date: '1895', lat: 32.795, lng: 35.53,
+      img: 'assets/nhm-tiberias-daylight.jpg', caption: 'Henrietta Pilkington, Tiberias 1895, Daylight. NHM 1930.5477.75.' },
+    { key: 'Baalbek', name: 'Baalbek', date: '1895', lat: 34.007, lng: 36.204 },
+    { key: 'Karnak', name: 'Karnak', date: 'January 1896', lat: 25.719, lng: 32.657 },
+    { key: 'Norton', name: 'Norton, Letchworth', date: '', lat: 51.983, lng: -0.208,
+      img: 'assets/nhm-old-cottage.jpg', caption: 'Margaret Thomas, Old Cottage. NHM 1930.5517.' }
+  ];
+
+  // Curved voyage arcs: a quadratic bezier between each pair of stations,
+  // bowing gently to the left of the direction of travel.
+  function curveBetween(a, b) {
+    var pts = [];
+    var mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
+    var dx = b[0] - a[0], dy = b[1] - a[1];
+    var cx = mx - dy * 0.18, cy = my + dx * 0.18;
+    for (var t = 0; t <= 1.001; t += 1 / 24) {
+      var u = 1 - t;
+      pts.push([u * u * a[0] + 2 * u * t * cx + t * t * b[0],
+                u * u * a[1] + 2 * u * t * cy + t * t * b[1]]);
+    }
+    return pts;
+  }
+  var routePoints = [];
+  for (var i = 0; i < stations.length - 1; i++) {
+    routePoints = routePoints.concat(curveBetween(
+      [stations[i].lat, stations[i].lng],
+      [stations[i + 1].lat, stations[i + 1].lng]
+    ));
+  }
+  var route = L.polyline(routePoints, {
+    color: '#8e3b2f',
+    weight: 2,
+    dashArray: '2 8'
+  }).addTo(map);
+
+  var markers = {};
+  stations.forEach(function (s) {
+    var html = '<p class="tip-place">' + s.name + (s.date ? '<span>' + s.date + '</span>' : '') + '</p>';
+    if (s.img) {
+      html += '<img src="' + s.img + '" alt=""><p class="tip-caption">' + s.caption + '</p>';
+    }
+    markers[s.key] = L.circleMarker([s.lat, s.lng], {
+      radius: 7,
+      color: '#8e3b2f',
+      weight: 3,
+      fillColor: '#faf7f1',
+      fillOpacity: 1
+    }).addTo(map).bindTooltip(html, { className: 'station-tip', direction: 'top', opacity: 1 });
+  });
+
+  // Two framings: Europe & the East (default, readable) and the whole journey (with Melbourne).
+  var eastStations = stations.filter(function (s) { return s.key !== 'Melbourne'; });
+  var eastBounds = L.latLngBounds(eastStations.map(function (s) { return [s.lat, s.lng]; }));
+  var worldBounds = route.getBounds();
+  map.fitBounds(eastBounds, { padding: [30, 30] });
+
+  document.getElementById('view-east').addEventListener('click', function () {
+    map.flyToBounds(eastBounds, { padding: [30, 30], duration: 2.2 });
+  });
+  document.getElementById('view-world').addEventListener('click', function () {
+    map.flyToBounds(worldBounds, { padding: [30, 30], duration: 2.2 });
+  });
+
+  // Click a timeline station: the map flies to the place and shows its tooltip.
+  document.querySelectorAll('.station-h').forEach(function (el) {
+    el.addEventListener('click', function () {
+      var m = markers[el.dataset.place];
+      if (!m) return;
+      document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      map.flyTo(m.getLatLng(), 7, { duration: 2.8, easeLinearity: 0.1 });
+      setTimeout(function () { m.openTooltip(); }, 2900);
+    });
+  });
+
+  // Timeline stations slide in as they enter view
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.station-h').forEach(function (el) { obs.observe(el); });
+</script>
+
+<script src="lightbox.js?v=2"></script>
+<script src="nav.js?v=2"></script>
+</body>
+</html>
