@@ -330,6 +330,53 @@ figure.painting img:hover { opacity: 0.93; }
 .station-h { cursor: pointer; }
 .station-h:hover .place { color: var(--accent); }
 
+/* Faint scroll cues: edge-fades and arrows that surface only when there is
+   more of the journey to reach in that direction. */
+.timeline-wrap { position: relative; }
+.timeline-wrap::before,
+.timeline-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 56px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+.timeline-wrap::before { left: 0; background: linear-gradient(to right, var(--paper) 30%, transparent); }
+.timeline-wrap::after { right: 0; background: linear-gradient(to left, var(--paper) 30%, transparent); }
+.timeline-wrap.can-prev::before,
+.timeline-wrap.can-next::after { opacity: 1; }
+.tl-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--muted);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 1px 4px rgba(45, 30, 22, 0.12);
+  transition: opacity 0.4s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.tl-prev { left: 2px; }
+.tl-next { right: 2px; }
+.timeline-wrap.can-prev .tl-prev,
+.timeline-wrap.can-next .tl-next { opacity: 0.9; pointer-events: auto; }
+.tl-arrow:hover { color: var(--accent); border-color: var(--accent); opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .timeline-wrap::before, .timeline-wrap::after, .tl-arrow { transition: none; }
+}
+
 /* Itinerary thread (vertical variant) */
 .thread { position: relative; max-width: 34rem; margin-top: var(--sp-lg); }
 .thread::before {

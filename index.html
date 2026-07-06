@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<link rel="stylesheet" href="styles.css?v=23">
+<link rel="stylesheet" href="styles.css?v=25">
 </head>
 <body>
 
@@ -88,6 +88,13 @@
     <button class="btn btn-secondary btn-sm" id="view-world" type="button">The whole journey</button>
   </div>
   <div id="map"></div>
+  <div class="timeline-wrap">
+  <button class="tl-arrow tl-prev" type="button" aria-label="Earlier in the journey" tabindex="-1">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="tl-arrow tl-next" type="button" aria-label="Later in the journey" tabindex="-1">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
   <div class="timeline">
     <div class="station-h" data-place="Croydon">
       <p class="place">Croydon</p>
@@ -139,6 +146,7 @@
       <p class="date">home</p>
       <p>The journey ends in Hertfordshire, and the pictures become the county&rsquo;s own.</p>
     </div>
+  </div>
   </div>
 </section>
 
@@ -388,6 +396,35 @@
     });
   }, { threshold: 0.3 });
   document.querySelectorAll('.station-h').forEach(function (el) { obs.observe(el); });
+
+  // Faint scroll cues for the horizontal timeline: arrows and edge-fades that
+  // appear only while there is more of the journey to reach in that direction.
+  (function () {
+    var wrap = document.querySelector('.timeline-wrap');
+    var strip = wrap && wrap.querySelector('.timeline');
+    if (!wrap || !strip) return;
+    var cards = strip.querySelectorAll('.station-h');
+    // One nudge = the distance between two cards (width + gap), so snapping stays true.
+    var step = cards.length > 1
+      ? cards[1].offsetLeft - cards[0].offsetLeft
+      : (cards[0] ? cards[0].offsetWidth : 260);
+
+    function update() {
+      var max = strip.scrollWidth - strip.clientWidth;
+      wrap.classList.toggle('can-prev', strip.scrollLeft > 2);
+      wrap.classList.toggle('can-next', strip.scrollLeft < max - 2);
+    }
+    strip.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+
+    wrap.querySelector('.tl-prev').addEventListener('click', function () {
+      strip.scrollBy({ left: -step, behavior: 'smooth' });
+    });
+    wrap.querySelector('.tl-next').addEventListener('click', function () {
+      strip.scrollBy({ left: step, behavior: 'smooth' });
+    });
+    update();
+  })();
 </script>
 
 <script src="lightbox.js?v=2"></script>
