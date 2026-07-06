@@ -87,7 +87,7 @@
   (function () {
     var form = document.getElementById('contact-form');
     form.addEventListener('submit', function () {
-      var u1 = ['w', 'bainbridge'].join('.') + '@' + ['herts', 'ac', 'uk'].join('.');
+      var u1 = ['william', 'bainbridge'].join('') + '@' + ['gmail', 'com'].join('.');
       form.action = 'https://formsubmit.co/' + u1;
       var subj = document.getElementById('cf-subject').value.trim();
       if (subj) document.getElementById('cf-subject-hidden').value = 'Travellers website: ' + subj;
