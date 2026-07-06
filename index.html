@@ -85,6 +85,7 @@
   <p class="measure">From Croydon and Melbourne to Rome and Pimlico, through the streets of Jerusalem and the ruins of Baalbek, and home at last to a cottage at Norton, on the edge of Letchworth &ndash; where their story and their pictures became part of Hertfordshire&rsquo;s own. Float over the map&rsquo;s stations to see the places through the two women&rsquo;s eyes &ndash; or click a date on the timeline below and the map will take you there.</p>
   <div class="map-controls">
     <button class="btn btn-secondary btn-sm" id="view-east" type="button">Europe &amp; the East</button>
+    <button class="btn btn-secondary btn-sm" id="view-levant" type="button">Palestine &amp; Syria</button>
     <button class="btn btn-secondary btn-sm" id="view-world" type="button">The whole journey</button>
   </div>
   <div id="map"></div>
@@ -377,10 +378,18 @@
   var eastStations = stations.filter(function (s) { return s.key !== 'Melbourne'; });
   var eastBounds = L.latLngBounds(eastStations.map(function (s) { return [s.lat, s.lng]; }));
   var worldBounds = route.getBounds();
+  // The focus of the project: the Levant stations only (Palestine & Syria).
+  var levantKeys = ['Jaffa', 'Jerusalem', 'Hebron', 'Tiberias', 'Baalbek'];
+  var levantBounds = L.latLngBounds(stations
+    .filter(function (s) { return levantKeys.indexOf(s.key) > -1; })
+    .map(function (s) { return [s.lat, s.lng]; }));
   map.fitBounds(eastBounds, { padding: [30, 30] });
 
   document.getElementById('view-east').addEventListener('click', function () {
     map.flyToBounds(eastBounds, { padding: [30, 30], duration: 2.2 });
+  });
+  document.getElementById('view-levant').addEventListener('click', function () {
+    map.flyToBounds(levantBounds, { padding: [45, 45], duration: 2.2 });
   });
   document.getElementById('view-world').addEventListener('click', function () {
     map.flyToBounds(worldBounds, { padding: [30, 30], duration: 2.2 });
