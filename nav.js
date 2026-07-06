@@ -29,6 +29,12 @@
     var y = window.scrollY + 130;
     var current = null;
     sections.forEach(function (s) { if (s.el.offsetTop <= y) current = s; });
+    // At the foot of the page the last section wins even if it never reaches
+    // the threshold (a short final section above the footer would otherwise
+    // leave the previous link highlighted).
+    if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 2) {
+      current = sections[sections.length - 1];
+    }
     spied.forEach(function (a) { a.classList.remove('active'); });
     ((current && current.a) || homeLink || sections[0].a).classList.add('active');
   }
