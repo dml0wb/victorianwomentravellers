@@ -508,3 +508,20 @@ footer p {
   max-width: 42rem;
 }
 footer p + p { margin-top: var(--sp-sm); }
+.footer-logos {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-xl);
+  margin-bottom: var(--sp-lg);
+}
+.footer-logos a { display: inline-flex; }
+.footer-logos img {
+  height: 44px;
+  width: auto;
+  filter: brightness(0);
+  opacity: 0.58;
+  transition: opacity 0.2s ease;
+}
+.footer-logos a:hover img,
+.footer-logos a:focus-visible img { opacity: 1; }
