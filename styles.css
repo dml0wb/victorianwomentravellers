@@ -126,8 +126,10 @@ figure.painting img:focus-visible,
     linear-gradient(
       to bottom,
       rgba(51, 42, 38, 0.18) 0%,
-      rgba(250, 247, 241, 0.06) 28%,
-      rgba(250, 247, 241, 0.9) 56%,
+      rgba(250, 247, 241, 0) 30%,
+      rgba(250, 247, 241, 0.14) 52%,
+      rgba(250, 247, 241, 0.42) 70%,
+      rgba(250, 247, 241, 0.78) 86%,
       var(--paper) 100%
     ),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/></svg>");
@@ -135,9 +137,13 @@ figure.painting img:focus-visible,
 .hero-text {
   position: absolute; left: 0; right: 0; bottom: var(--sp-lg); z-index: 2;
   /* Local scrim: whatever the viewport, the title block always sits on ≥0.9 paper.
-     Same paper tone as the main dissolve, so it reads as one gradient. */
-  background: linear-gradient(to bottom, rgba(250, 247, 241, 0) 0, rgba(250, 247, 241, 0.9) var(--sp-xl));
-  padding-top: var(--sp-xl);
+     Same paper tone as the main dissolve, so it reads as one gradient. The ramp is
+     deep (96px, eased) so its top edge never reads as a band against the painting. */
+  background: linear-gradient(to bottom,
+    rgba(250, 247, 241, 0) 0,
+    rgba(250, 247, 241, 0.45) calc(var(--sp-xxl) * 0.55),
+    rgba(250, 247, 241, 0.9) var(--sp-xxl));
+  padding-top: var(--sp-xxl);
 }
 .hero-credit {
   position: absolute;
