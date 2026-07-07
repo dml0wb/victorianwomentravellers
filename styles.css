@@ -277,7 +277,7 @@ blockquote cite {
 /* Painting figure with pigment strip (signature element) */
 figure.painting figcaption {
   font-family: 'Cabin', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.02em;
   line-height: 1.45;
@@ -327,27 +327,26 @@ figure.painting img:hover { opacity: 0.93; }
 .lightbox-close:hover,
 .lightbox-close:focus-visible { border-color: #faf7f1; }
 
-/* Paintings gallery: masonry flow via CSS columns. Tiles run small and close
-   so the lightbox always enlarges - the click has to be worth making. */
-.gallery { columns: 4; column-gap: var(--sp-md); }
-@media (max-width: 1100px) { .gallery { columns: 3; } }
-@media (max-width: 800px) { .gallery { columns: 2; } }
-@media (max-width: 560px) { .gallery { columns: 1; } }
-.gallery figure.painting { break-inside: avoid; margin-bottom: var(--sp-md); }
+/* Paintings gallery: one uniform tile width for EVERY painting on the page -
+   place groups, solo sections and the pairing alike (William, 2026-07-07:
+   "all the images could be a little bit more uniform... the clicking upon
+   them should make sense") - so the page reads as one collection and every
+   click is a true enlargement, even for the smallest museum scans (410px). */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, 205px); gap: var(--sp-lg); }
+@media (max-width: 560px) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.gallery figure.painting { margin: 0; }
 /* A section holding a single painting: drop the columns and give the lone
    figure a wider measure instead of leaving two empty columns. */
-.gallery.solo { columns: auto; }
-/* Kept well under the smallest native scan (410px) so even a solo painting
-   clearly grows when clicked - at 40rem the lightbox could open SMALLER
-   than the page. */
-.gallery.solo figure.painting { max-width: 19rem; }
+/* Solo sections take the same uniform tile - no exceptions. */
+.gallery.solo figure.painting { max-width: none; }
 /* Two-eyes pairing: the same place seen by each artist, side by side.
    Bottom-aligned so a portrait oil and a landscape watercolour meet on a
    common baseline instead of leaving a void under the shorter figure. */
-.pairing { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-md); max-width: 44rem; margin: var(--sp-lg) 0 var(--sp-xl); align-items: end; }
+.pairing { display: grid; grid-template-columns: 205px 205px; gap: var(--sp-lg); max-width: none; margin: var(--sp-lg) 0 var(--sp-xl); align-items: end; }
+@media (max-width: 560px) { .pairing { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .pairing figure.painting { margin: 0; }
 .pairing figure.painting img { width: 100%; height: auto; display: block; }
-@media (max-width: 560px) { .pairing { grid-template-columns: 1fr; } }
+
 
 /* Horizontal dynamic timeline (Journey page) */
 .timeline {
