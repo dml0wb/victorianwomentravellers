@@ -110,13 +110,14 @@ figure.painting img:focus-visible,
   outline-offset: 2px;
 }
 
-/* Graduated image hero (homepage) */
-.hero-visual { position: relative; height: 64vh; min-height: 420px; overflow: hidden; }
-@media (max-width: 700px) { .hero-visual { height: 48vh; min-height: 320px; } }
+/* Graduated map hero (homepage): Stieler 1895, dissolving into the paper */
+.hero-visual { position: relative; height: 72vh; min-height: 480px; overflow: hidden; }
+@media (max-width: 700px) { .hero-visual { height: 52vh; min-height: 360px; } }
+.hero-visual picture { display: contents; }
 .hero-visual img {
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center top;
 }
 .hero-visual::after {
   content: "";
@@ -125,12 +126,11 @@ figure.painting img:focus-visible,
   background:
     linear-gradient(
       to bottom,
-      rgba(51, 42, 38, 0.18) 0%,
-      rgba(250, 247, 241, 0) 30%,
-      rgba(250, 247, 241, 0.22) 48%,
-      rgba(250, 247, 241, 0.62) 60%,
-      rgba(250, 247, 241, 0.88) 70%,
-      rgba(250, 247, 241, 0.97) 82%,
+      rgba(51, 42, 38, 0.08) 0%,
+      rgba(250, 247, 241, 0) 36%,
+      rgba(250, 247, 241, 0.28) 58%,
+      rgba(250, 247, 241, 0.55) 72%,
+      rgba(250, 247, 241, 0.8) 86%,
       var(--paper) 100%
     ),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/></svg>");
@@ -152,26 +152,17 @@ figure.painting img:focus-visible,
   }
 }
 .hero-text { position: absolute; left: 0; right: 0; bottom: var(--sp-lg); z-index: 2; }
-/* Plain ink on the dissolve - no halo, no scrim (both rejected 2026-07-07:
-   the halo read as a glow, geometric scrims drew fog lines). The gradient
-   alone carries legibility, and it must reach ~0.6 paper by the kicker's
-   height: at some window shapes the kicker rides the least-dissolved band,
-   where muted ink disappeared entirely (also 2026-07-07). Kicker stays
-   accent red - the one colour proven on every ground. */
-.hero-credit {
-  position: absolute;
-  top: var(--sp-md);
-  right: var(--sp-md);
-  z-index: 2;
-  font-family: 'Cabin', sans-serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.04em;
-  /* Quiet by design (William, 2026-07-07: "a bit too prominent... greyed
-     out or something") - a whisper of a credit, not a label. */
-  color: rgba(250, 247, 241, 0.55);
-  background: rgba(51, 42, 38, 0.16);
-  padding: 2px 8px;
-}
+/* On desktop the title rides up onto the map itself; legibility comes from a
+   feathered pool of paper light BAKED INTO THE HERO ASSET under the text
+   block (rebake it if the text moves) - never a CSS overlay: no scrims, no
+   halos (both rejected 2026-07-07, they draw fog lines and glows). The hero
+   kicker runs a size up in a deepened red so it cannot merge with the map's
+   own red lettering. */
+@media (min-width: 1001px) { .hero-text { bottom: 112px; } }
+.hero-text .kicker { font-size: 0.95rem; letter-spacing: 0.18em; color: #7c2f22; }
+/* The hero's source credit lives at the foot of the page (William's call,
+   2026-07-07), quieter than the footer's own lines. */
+.footer-credit { font-size: 0.72rem; opacity: 0.85; }
 .intro { border-top: none; padding: var(--sp-lg) 0 var(--sp-xl); }
 .intro .actions { margin-top: var(--sp-lg); display: flex; gap: var(--sp-md); flex-wrap: wrap; }
 
