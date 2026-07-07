@@ -184,6 +184,11 @@ header.hero { padding: var(--sp-xl) 0; }
   color: var(--accent);
   margin-bottom: var(--sp-md);
 }
+/* Homepage hero runs title first, kicker beneath (decided 2026-07-05,
+   restored 2026-07-07 after a "polish" pass matched it to the subpage
+   pattern): under the H1 the kicker sits lower in the dissolve, on calm
+   ground, instead of riding the least-dissolved band of the painting. */
+h1 + .kicker { margin-top: var(--sp-sm); margin-bottom: 0; }
 h1 {
   font-family: 'Fraunces', serif;
   font-optical-sizing: auto;
