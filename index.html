@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<link rel="stylesheet" href="styles.css?v=c98acc5bae">
+<link rel="stylesheet" href="styles.css?v=3efe916468">
 </head>
 <body>
 
@@ -464,6 +464,9 @@
       var max = strip.scrollWidth - strip.clientWidth;
       var canPrev = strip.scrollLeft > 2;
       var canNext = strip.scrollLeft < max - 2;
+      // Paddles exist only when the strip overflows at all; within that,
+      // the unavailable direction dims (CSS) rather than disappearing.
+      wrap.classList.toggle('has-overflow', max > 4);
       wrap.classList.toggle('can-prev', canPrev);
       wrap.classList.toggle('can-next', canNext);
       // Hidden arrows leave the tab order; visible ones join it.

@@ -127,23 +127,42 @@ figure.painting img:focus-visible,
       to bottom,
       rgba(51, 42, 38, 0.18) 0%,
       rgba(250, 247, 241, 0) 30%,
-      rgba(250, 247, 241, 0.14) 52%,
-      rgba(250, 247, 241, 0.42) 70%,
-      rgba(250, 247, 241, 0.78) 86%,
+      rgba(250, 247, 241, 0.18) 48%,
+      rgba(250, 247, 241, 0.5) 62%,
+      rgba(250, 247, 241, 0.78) 74%,
+      rgba(250, 247, 241, 0.94) 86%,
       var(--paper) 100%
     ),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/></svg>");
 }
-.hero-text {
-  position: absolute; left: 0; right: 0; bottom: var(--sp-lg); z-index: 2;
-  /* Local scrim: whatever the viewport, the title block always sits on ≥0.9 paper.
-     Same paper tone as the main dissolve, so it reads as one gradient. The ramp is
-     deep (96px, eased) so its top edge never reads as a band against the painting. */
-  background: linear-gradient(to bottom,
-    rgba(250, 247, 241, 0) 0,
-    rgba(250, 247, 241, 0.45) calc(var(--sp-xxl) * 0.55),
-    rgba(250, 247, 241, 0.9) var(--sp-xxl));
-  padding-top: var(--sp-xxl);
+/* Narrow viewports: the hero is short and the title block covers most of it,
+   so the dissolve must arrive early. Wide viewports keep the painting. */
+@media (max-width: 1000px) {
+  .hero-visual::after {
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(51, 42, 38, 0.15) 0%,
+        rgba(250, 247, 241, 0.06) 22%,
+        rgba(250, 247, 241, 0.55) 40%,
+        rgba(250, 247, 241, 0.9) 54%,
+        var(--paper) 82%
+      ),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/></svg>");
+  }
+}
+.hero-text { position: absolute; left: 0; right: 0; bottom: var(--sp-lg); z-index: 2; }
+/* Legibility without geometry: a paper halo hugging the letterforms, so the
+   heading reads over the half-dissolved painting with no scrim edge to draw
+   a line across the image. */
+.hero-text .kicker,
+.hero-text h1,
+.hero-text .subtitle {
+  text-shadow:
+    0 0 4px rgba(250, 247, 241, 0.95),
+    0 0 10px rgba(250, 247, 241, 0.85),
+    0 0 22px rgba(250, 247, 241, 0.7),
+    0 0 38px rgba(250, 247, 241, 0.55);
 }
 .hero-credit {
   position: absolute;
@@ -316,15 +335,19 @@ figure.painting img:hover { opacity: 0.93; }
 .lightbox-close:hover,
 .lightbox-close:focus-visible { border-color: #faf7f1; }
 
-/* Paintings gallery: masonry flow via CSS columns */
-.gallery { columns: 3; column-gap: var(--sp-lg); }
-@media (max-width: 900px) { .gallery { columns: 2; } }
+/* Paintings gallery: masonry flow via CSS columns. Tiles run small and close
+   so the lightbox always enlarges - the click has to be worth making. */
+.gallery { columns: 4; column-gap: var(--sp-md); }
+@media (max-width: 1100px) { .gallery { columns: 3; } }
+@media (max-width: 800px) { .gallery { columns: 2; } }
 @media (max-width: 560px) { .gallery { columns: 1; } }
-.gallery figure.painting { break-inside: avoid; margin-bottom: var(--sp-lg); }
+.gallery figure.painting { break-inside: avoid; margin-bottom: var(--sp-md); }
 /* A section holding a single painting: drop the columns and give the lone
    figure a wider measure instead of leaving two empty columns. */
 .gallery.solo { columns: auto; }
-.gallery.solo figure.painting { max-width: 40rem; }
+/* Kept under the smallest native scan (410px) so even a solo painting grows
+   when clicked - at 40rem the lightbox could open SMALLER than the page. */
+.gallery.solo figure.painting { max-width: 25rem; }
 /* Two-eyes pairing: the same place seen by each artist, side by side.
    Bottom-aligned so a portrait oil and a landscape watercolour meet on a
    common baseline instead of leaving a void under the shorter figure. */
@@ -418,21 +441,25 @@ figure.painting img:hover { opacity: 0.93; }
   top: 50%;
   transform: translateY(-50%);
   z-index: 3;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   width: 40px; height: 40px;
   padding: 0;
   border: 1px solid var(--rule);
+  border-radius: 50%;
   background: var(--paper);
   color: var(--muted);
   cursor: pointer;
-  opacity: 0;
+  opacity: 0.25;
   pointer-events: none;
   transition: opacity 0.4s ease, color 0.2s ease, border-color 0.2s ease;
 }
 .tl-prev { left: 2px; }
 .tl-next { right: 2px; }
+/* Both paddles stay put while the strip overflows; the unavailable direction
+   dims rather than vanishes, so nothing pops in and out as the visitor moves. */
+.timeline-wrap.has-overflow .tl-arrow { display: flex; }
 .timeline-wrap.can-prev .tl-prev,
 .timeline-wrap.can-next .tl-next { opacity: 0.9; pointer-events: auto; }
 .tl-arrow:hover { color: var(--accent); border-color: var(--accent); opacity: 1; }
