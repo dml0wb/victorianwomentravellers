@@ -164,10 +164,12 @@ figure.painting img:focus-visible,
   right: var(--sp-md);
   z-index: 2;
   font-family: 'Cabin', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.04em;
-  color: rgba(250, 247, 241, 0.92);
-  background: rgba(51, 42, 38, 0.45);
+  /* Quiet by design (William, 2026-07-07: "a bit too prominent... greyed
+     out or something") - a whisper of a credit, not a label. */
+  color: rgba(250, 247, 241, 0.55);
+  background: rgba(51, 42, 38, 0.16);
   padding: 2px 8px;
 }
 .intro { border-top: none; padding: var(--sp-lg) 0 var(--sp-xl); }
