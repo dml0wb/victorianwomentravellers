@@ -127,10 +127,10 @@ figure.painting img:focus-visible,
       to bottom,
       rgba(51, 42, 38, 0.18) 0%,
       rgba(250, 247, 241, 0) 30%,
-      rgba(250, 247, 241, 0.18) 48%,
-      rgba(250, 247, 241, 0.5) 62%,
-      rgba(250, 247, 241, 0.78) 74%,
-      rgba(250, 247, 241, 0.94) 86%,
+      rgba(250, 247, 241, 0.22) 48%,
+      rgba(250, 247, 241, 0.62) 60%,
+      rgba(250, 247, 241, 0.88) 70%,
+      rgba(250, 247, 241, 0.97) 82%,
       var(--paper) 100%
     ),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/></svg>");
@@ -153,10 +153,11 @@ figure.painting img:focus-visible,
 }
 .hero-text { position: absolute; left: 0; right: 0; bottom: var(--sp-lg); z-index: 2; }
 /* Plain ink on the dissolve - no halo, no scrim (both rejected 2026-07-07:
-   the halo read as a glow, geometric scrims drew fog lines). The responsive
-   gradient alone carries legibility. The hero kicker runs muted, not accent:
-   red sat uneasily on the painting. */
-.hero-text .kicker { color: var(--muted); }
+   the halo read as a glow, geometric scrims drew fog lines). The gradient
+   alone carries legibility, and it must reach ~0.6 paper by the kicker's
+   height: at some window shapes the kicker rides the least-dissolved band,
+   where muted ink disappeared entirely (also 2026-07-07). Kicker stays
+   accent red - the one colour proven on every ground. */
 .hero-credit {
   position: absolute;
   top: var(--sp-md);
