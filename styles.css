@@ -151,25 +151,6 @@ figure.painting img:focus-visible,
       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/></svg>");
   }
 }
-/* A ghost of the period route map (Bartholomew, from Kelman 1908 - the book
-   Thomas illustrated; public domain) printing faintly on the paper zone as
-   the painting dissolves. Sits ABOVE the gradient, BELOW the text; multiply
-   blend means its paper-white feathered edges vanish - no rectangle, no line.
-   Right side only, clear of the title block; off at narrow widths. */
-.hero-map {
-  position: absolute;
-  right: -3%;
-  bottom: 0;
-  width: 46%;
-  max-width: 760px;
-  aspect-ratio: 1100 / 1017;
-  background: url("assets/kelman-route-map.jpg") center / contain no-repeat;
-  mix-blend-mode: multiply;
-  opacity: 0.32;
-  z-index: 1;
-  pointer-events: none;
-}
-@media (max-width: 1000px) { .hero-map { display: none; } }
 .hero-text { position: absolute; left: 0; right: 0; bottom: var(--sp-lg); z-index: 2; }
 /* Plain ink on the dissolve - no halo, no scrim (both rejected 2026-07-07:
    the halo read as a glow, geometric scrims drew fog lines). The gradient
