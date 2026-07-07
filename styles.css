@@ -152,18 +152,11 @@ figure.painting img:focus-visible,
   }
 }
 .hero-text { position: absolute; left: 0; right: 0; bottom: var(--sp-lg); z-index: 2; }
-/* Legibility without geometry: a paper halo hugging the letterforms, so the
-   heading reads over the half-dissolved painting with no scrim edge to draw
-   a line across the image. */
-.hero-text .kicker,
-.hero-text h1,
-.hero-text .subtitle {
-  text-shadow:
-    0 0 4px rgba(250, 247, 241, 0.95),
-    0 0 10px rgba(250, 247, 241, 0.85),
-    0 0 22px rgba(250, 247, 241, 0.7),
-    0 0 38px rgba(250, 247, 241, 0.55);
-}
+/* Plain ink on the dissolve - no halo, no scrim (both rejected 2026-07-07:
+   the halo read as a glow, geometric scrims drew fog lines). The responsive
+   gradient alone carries legibility. The hero kicker runs muted, not accent:
+   red sat uneasily on the painting. */
+.hero-text .kicker { color: var(--muted); }
 .hero-credit {
   position: absolute;
   top: var(--sp-md);
