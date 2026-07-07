@@ -345,13 +345,14 @@ figure.painting img:hover { opacity: 0.93; }
 /* A section holding a single painting: drop the columns and give the lone
    figure a wider measure instead of leaving two empty columns. */
 .gallery.solo { columns: auto; }
-/* Kept under the smallest native scan (410px) so even a solo painting grows
-   when clicked - at 40rem the lightbox could open SMALLER than the page. */
-.gallery.solo figure.painting { max-width: 25rem; }
+/* Kept well under the smallest native scan (410px) so even a solo painting
+   clearly grows when clicked - at 40rem the lightbox could open SMALLER
+   than the page. */
+.gallery.solo figure.painting { max-width: 19rem; }
 /* Two-eyes pairing: the same place seen by each artist, side by side.
    Bottom-aligned so a portrait oil and a landscape watercolour meet on a
    common baseline instead of leaving a void under the shorter figure. */
-.pairing { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-lg); margin: var(--sp-lg) 0 var(--sp-xl); align-items: end; }
+.pairing { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-md); max-width: 44rem; margin: var(--sp-lg) 0 var(--sp-xl); align-items: end; }
 .pairing figure.painting { margin: 0; }
 .pairing figure.painting img { width: 100%; height: auto; display: block; }
 @media (max-width: 560px) { .pairing { grid-template-columns: 1fr; } }
