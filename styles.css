@@ -25,7 +25,7 @@ body {
   overflow-x: clip;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 
 .wrap { max-width: 62rem; margin: 0 auto; padding: 0 clamp(var(--sp-lg), 6vw, var(--sp-xxl)); }
 
@@ -71,7 +71,7 @@ nav.site a.active {
   background: #faf7f1;
   margin: 5px 0;
 }
-@media (max-width: 740px) {
+@media (max-width: 1040px) {
   nav.site .wrap { align-items: center; }
   .nav-brand { display: block; font-family: 'Cabin', sans-serif; font-weight: 700; text-decoration: none; }
   .nav-toggle { display: block; }
@@ -83,7 +83,31 @@ nav.site a.active {
     padding-top: var(--sp-sm);
   }
   nav.site.open .nav-links { display: flex; }
-  .nav-links a { padding: var(--sp-sm) 0; border-top: 1px solid rgba(250, 247, 241, 0.18); }
+  .nav-links a { padding: var(--sp-md) 0; border-top: 1px solid rgba(250, 247, 241, 0.18); }
+}
+
+/* Skip link: hidden until focused, then a solid ink tab top-left */
+.skip-link {
+  position: absolute;
+  left: -100vw;
+  top: 0;
+  z-index: 1200;
+  font-family: 'Cabin', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: var(--ink);
+  color: var(--paper);
+  padding: var(--sp-sm) var(--sp-md);
+  text-decoration: none;
+}
+.skip-link:focus { left: 0; }
+
+/* Keyboard focus: same accent ring everywhere */
+figure.painting img:focus-visible,
+.station-h:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* Graduated image hero (homepage) */
@@ -102,13 +126,19 @@ nav.site a.active {
     linear-gradient(
       to bottom,
       rgba(51, 42, 38, 0.18) 0%,
-      rgba(250, 247, 241, 0.06) 34%,
-      rgba(250, 247, 241, 0.84) 76%,
+      rgba(250, 247, 241, 0.06) 28%,
+      rgba(250, 247, 241, 0.9) 56%,
       var(--paper) 100%
     ),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/></svg>");
 }
-.hero-text { position: absolute; left: 0; right: 0; bottom: var(--sp-lg); z-index: 2; }
+.hero-text {
+  position: absolute; left: 0; right: 0; bottom: var(--sp-lg); z-index: 2;
+  /* Local scrim: whatever the viewport, the title block always sits on ≥0.9 paper.
+     Same paper tone as the main dissolve, so it reads as one gradient. */
+  background: linear-gradient(to bottom, rgba(250, 247, 241, 0) 0, rgba(250, 247, 241, 0.9) var(--sp-xl));
+  padding-top: var(--sp-xl);
+}
 .hero-credit {
   position: absolute;
   top: var(--sp-md);
@@ -126,7 +156,6 @@ nav.site a.active {
 
 /* Hero */
 header.hero { padding: var(--sp-xl) 0; }
-h1 + .kicker { margin-top: var(--sp-sm); margin-bottom: 0; }
 .kicker {
   font-family: 'Cabin', sans-serif;
   font-size: 0.8rem;
@@ -262,14 +291,38 @@ figure.painting img:hover { opacity: 0.93; }
   text-align: center;
   margin-top: var(--sp-md);
 }
+.lightbox-close {
+  position: absolute;
+  top: var(--sp-md);
+  right: var(--sp-md);
+  width: 44px; height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cabin', sans-serif;
+  font-size: 1.2rem;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid rgba(250, 247, 241, 0.5);
+  color: #faf7f1;
+  cursor: pointer;
+}
+.lightbox-close:hover,
+.lightbox-close:focus-visible { border-color: #faf7f1; }
 
 /* Paintings gallery: masonry flow via CSS columns */
 .gallery { columns: 3; column-gap: var(--sp-lg); }
 @media (max-width: 900px) { .gallery { columns: 2; } }
 @media (max-width: 560px) { .gallery { columns: 1; } }
 .gallery figure.painting { break-inside: avoid; margin-bottom: var(--sp-lg); }
-/* Two-eyes pairing: the same place seen by each artist, side by side */
-.pairing { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-lg); margin: var(--sp-lg) 0 var(--sp-xl); }
+/* A section holding a single painting: drop the columns and give the lone
+   figure a wider measure instead of leaving two empty columns. */
+.gallery.solo { columns: auto; }
+.gallery.solo figure.painting { max-width: 40rem; }
+/* Two-eyes pairing: the same place seen by each artist, side by side.
+   Bottom-aligned so a portrait oil and a landscape watercolour meet on a
+   common baseline instead of leaving a void under the shorter figure. */
+.pairing { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-lg); margin: var(--sp-lg) 0 var(--sp-xl); align-items: end; }
 .pairing figure.painting { margin: 0; }
 .pairing figure.painting img { width: 100%; height: auto; display: block; }
 @media (max-width: 560px) { .pairing { grid-template-columns: 1fr; } }
@@ -279,10 +332,12 @@ figure.painting img:hover { opacity: 0.93; }
   display: flex;
   gap: var(--sp-lg);
   overflow-x: auto;
-  scroll-snap-type: x proximity;
   margin-top: var(--sp-lg);
   padding-bottom: var(--sp-md);
 }
+/* Snap is deferred until the visitor first scrolls the strip, so the
+   timeline always starts at Croydon rather than part-snapped. */
+.timeline.snap { scroll-snap-type: x proximity; }
 .station-h {
   position: relative;
   flex: 0 0 auto;
@@ -322,7 +377,6 @@ figure.painting img:hover { opacity: 0.93; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
-.station-h .place span { color: var(--accent); font-weight: 500; letter-spacing: 0.08em; margin-left: var(--sp-sm); }
 .station-h .date {
   font-family: 'Cabin', sans-serif;
   font-size: 0.85rem;
@@ -364,13 +418,11 @@ figure.painting img:hover { opacity: 0.93; }
   width: 40px; height: 40px;
   padding: 0;
   border: 1px solid var(--rule);
-  border-radius: 50%;
   background: var(--paper);
   color: var(--muted);
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
-  box-shadow: 0 1px 4px rgba(45, 30, 22, 0.12);
   transition: opacity 0.4s ease, color 0.2s ease, border-color 0.2s ease;
 }
 .tl-prev { left: 2px; }
@@ -408,10 +460,10 @@ figure.painting img:hover { opacity: 0.93; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
-.station .place span { color: var(--accent); font-weight: 500; letter-spacing: 0.08em; margin-left: var(--sp-sm); }
 .station p { font-size: 0.95rem; line-height: 1.55; color: var(--muted); margin-top: var(--sp-xs); }
 
-.map-controls { display: flex; gap: var(--sp-sm); margin-top: var(--sp-lg); }
+.map-controls { display: flex; flex-wrap: wrap; gap: var(--sp-sm); margin-top: var(--sp-lg); }
+.map-controls .btn { white-space: nowrap; }
 .btn-sm { padding: var(--sp-xs) var(--sp-md); font-size: 0.78rem; }
 
 /* Journey map */
@@ -420,14 +472,20 @@ figure.painting img:hover { opacity: 0.93; }
   z-index: 0;
   isolation: isolate;
   height: 560px;
-  background: #efe8d8;
+  background: var(--paper);
   border: 1px solid var(--rule);
   margin-top: var(--sp-md);
-  background: var(--paper);
 }
 #map .leaflet-tile-pane {
   filter: sepia(0.5) saturate(0.55) contrast(0.92) brightness(1.03);
 }
+/* Leaflet defaults brought onto the system: square corners, quiet attribution */
+#map .leaflet-bar,
+#map .leaflet-bar a,
+#map .leaflet-bar a:first-child,
+#map .leaflet-bar a:last-child { border-radius: 0; }
+#map .leaflet-control-attribution,
+#map .leaflet-control-attribution a { color: var(--muted); }
 .leaflet-tooltip.station-tip {
   border-radius: 0;
   border: 1px solid var(--rule);
@@ -448,6 +506,19 @@ figure.painting img:hover { opacity: 0.93; }
 .team { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: var(--sp-lg); }
 .person { border-top: 2px solid var(--ink); padding-top: var(--sp-md); }
 .person h3 { font-size: 1.3rem; margin-bottom: var(--sp-xs); }
+/* A linked name keeps the ink of its unlinked neighbours, with a quiet
+   stone underline as the affordance; hover deepens both to accent. */
+.person h3 a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--stone);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.person h3 a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
 .person .role {
   font-family: 'Cabin', sans-serif;
   font-size: 0.8rem;
@@ -483,7 +554,8 @@ figure.painting img:hover { opacity: 0.93; }
   font-family: 'Source Serif 4', serif;
   font-size: 1rem;
   padding: var(--sp-sm) var(--sp-md);
-  border: 1px solid var(--stone);
+  /* muted, not stone: stone on paper is 2.24:1, under the WCAG 3:1 non-text minimum */
+  border: 1px solid var(--muted);
   background: var(--paper);
   color: var(--ink);
   outline: none;
