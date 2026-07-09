@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<link rel="stylesheet" href="styles.css?v=fd0da6e094">
+<link rel="stylesheet" href="styles.css?v=428b5de871">
 </head>
 <body>
 
@@ -338,7 +338,8 @@
       img: 'assets/nhm-miss-pilkington.jpg', caption: 'Margaret Thomas, Miss Pilkington, 1874 – painted the year six of her portraits hung at the Academy. NHM 1930.5510.' },
     { key: 'Brittany', name: 'Brittany', date: '1888', lat: 48.2, lng: -2.93 },
     { key: 'Spain', name: 'Madrid', date: 'by 1892', lat: 40.417, lng: -3.703 },
-    { key: 'Tangier', name: 'Tangier', date: 'by 1892', lat: 35.767, lng: -5.8 },
+    { key: 'Tangier', name: 'Tangier', date: 'by 1892', lat: 35.767, lng: -5.8,
+      img: 'assets/nhm-tangier-kasbah.jpg', caption: 'Margaret Thomas, Tower in Kasbah, Tangier. From A Scamper Through Spain and Tangier, 1892.' },
     { key: 'Athens', name: 'Athens', date: '1893', lat: 37.972, lng: 23.726 },
     { key: 'Sicily', name: 'Taormina', date: '1893-96', lat: 37.852, lng: 15.287 },
     { key: 'Jaffa', name: 'Jaffa', date: '1895', lat: 32.05, lng: 34.75,
@@ -348,7 +349,8 @@
     { key: 'Hebron', name: 'Hebron', date: '1895', lat: 31.53, lng: 35.095 },
     { key: 'Tiberias', name: 'Tiberias', date: '1895', lat: 32.795, lng: 35.53,
       img: 'assets/nhm-tiberias-daylight-800.jpg', caption: 'Henrietta Pilkington, Tiberias 1895, Daylight. NHM 1930.5477.75.' },
-    { key: 'Baalbek', name: 'Baalbek', date: '1895', lat: 34.007, lng: 36.204 },
+    { key: 'Baalbek', name: 'Baalbek', date: '1895', lat: 34.007, lng: 36.204,
+      img: 'assets/nhm-baalbek-jupiter.jpg', caption: 'Margaret Thomas, The Temple of Jupiter, Baalbek. Colour plate from John Kelman, From Damascus to Palmyra, 1908.' },
     { key: 'Karnak', name: 'Karnak', date: 'January 1896', lat: 25.719, lng: 32.657 },
     { key: 'Norton', name: 'Norton, Letchworth', date: '', lat: 51.983, lng: -0.208,
       img: 'assets/nhm-old-cottage.jpg', caption: 'Margaret Thomas, Old Cottage. NHM 1930.5517.' }
@@ -396,6 +398,49 @@
     }).addTo(map).bindTooltip(html, { className: 'station-tip', direction: 'top', opacity: 1 });
   });
 
+  // Several stations fold into a single timeline card: clicking, say, Baalbek
+  // or Tiberias on the map should slide the timeline to "Palestine & Syria".
+  var timelineFold = {
+    London: 'Rome', Tangier: 'Spain',
+    Jaffa: 'Jerusalem', Hebron: 'Jerusalem', Tiberias: 'Jerusalem', Baalbek: 'Jerusalem'
+  };
+  function syncTimeline(key) {
+    var strip = document.querySelector('.timeline');
+    if (!strip) return;
+    var card = strip.querySelector('.station-h[data-place="' + (timelineFold[key] || key) + '"]');
+    if (!card) return;
+    strip.classList.add('snap');
+    strip.querySelectorAll('.station-h.active').forEach(function (c) { c.classList.remove('active'); });
+    card.classList.add('active');
+    var max = strip.scrollWidth - strip.clientWidth;
+    var target = card.offsetLeft - (strip.clientWidth - card.offsetWidth) / 2;
+    strip.scrollTo({ left: Math.max(0, Math.min(max, target)), behavior: 'smooth' });
+  }
+
+  // Tooltips open upward by default; near the top edge of the map that clips
+  // the taller illustrated tips (Baalbek, when zoomed into the Levant). Flip
+  // any that would clip to open downward, re-checking once the image has
+  // loaded and the tip's true height is known.
+  function placeTip(m) {
+    var tt = m.getTooltip();
+    if (!tt || !tt._container) return;
+    var y = map.latLngToContainerPoint(m.getLatLng()).y;
+    var dir = (y - tt._container.offsetHeight - 24 < 0) ? 'bottom' : 'top';
+    if (tt.options.direction !== dir) { tt.options.direction = dir; tt.update(); }
+  }
+
+  Object.keys(markers).forEach(function (key) {
+    var m = markers[key];
+    m.on('tooltipopen', function () {
+      placeTip(m);
+      var img = m.getTooltip()._container.querySelector('img');
+      if (img && !img.complete) {
+        img.addEventListener('load', function () { placeTip(m); }, { once: true });
+      }
+    });
+    m.on('click', function () { m.openTooltip(); syncTimeline(key); });
+  });
+
   // Two framings: Europe & the East (default, readable) and the whole journey (with Melbourne).
   var eastStations = stations.filter(function (s) { return s.key !== 'Melbourne'; });
   var eastBounds = L.latLngBounds(eastStations.map(function (s) { return [s.lat, s.lng]; }));
@@ -431,6 +476,8 @@
     function go() {
       var m = markers[el.dataset.place];
       if (!m) return;
+      document.querySelectorAll('.station-h.active').forEach(function (c) { c.classList.remove('active'); });
+      el.classList.add('active');
       document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
       map.flyTo(m.getLatLng(), 7, { duration: 2.8, easeLinearity: 0.1 });
       setTimeout(function () { m.openTooltip(); }, 2900);

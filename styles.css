@@ -409,6 +409,10 @@ figure.painting img:hover { opacity: 0.93; }
 .station-h p { font-size: 0.95rem; line-height: 1.55; color: var(--muted); margin-top: var(--sp-xs); }
 .station-h { cursor: pointer; }
 .station-h:hover .place { color: var(--accent); }
+/* "You are here": the card the map is currently pointing at fills its node
+   and warms its label, without shifting any layout. */
+.station-h.active .place { color: var(--accent); }
+.station-h.active::before { background: var(--accent); }
 
 /* Faint scroll cues: edge-fades and arrows that surface only when there is
    more of the journey to reach in that direction. */
