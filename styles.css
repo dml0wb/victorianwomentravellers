@@ -270,6 +270,89 @@ blockquote cite {
   margin-top: var(--sp-sm);
 }
 
+/* Letter pull-quotes (Thomas's 1866 correspondence) */
+.q-cite {
+  display: block;
+  font-family: 'Cabin', sans-serif;
+  font-style: normal;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-top: var(--sp-md);
+}
+.q-cite em { font-style: italic; }
+
+/* Inset variant: a short accent rule above an italic aside within a prose column */
+blockquote.pull-quote {
+  border: none;
+  padding: 0;
+  margin: var(--sp-lg) 0;
+}
+blockquote.pull-quote p {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+blockquote.pull-quote p::before {
+  content: "";
+  display: block;
+  width: 2.25rem;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: var(--sp-md);
+}
+
+/* Card variant: a self-contained tinted letter-slip */
+blockquote.pull-card {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  background: #f4ede0;
+  padding: var(--sp-lg);
+  max-width: 34rem;
+  margin: var(--sp-lg) 0;
+}
+blockquote.pull-card.center { margin-left: auto; margin-right: auto; }
+blockquote.pull-card.float-right {
+  float: right;
+  width: 17rem;
+  max-width: 45%;
+  margin: var(--sp-xs) 0 var(--sp-md) var(--sp-lg);
+}
+blockquote.pull-card.float-left {
+  float: left;
+  width: 17rem;
+  max-width: 45%;
+  margin: var(--sp-xs) var(--sp-lg) var(--sp-md) 0;
+}
+@media (max-width: 680px) {
+  blockquote.pull-card.float-right,
+  blockquote.pull-card.float-left {
+    float: none; width: auto; max-width: none; margin: var(--sp-lg) 0;
+  }
+}
+.intro .actions { clear: both; }
+#journey .map-controls { clear: both; }
+blockquote.pull-card .card-kicker {
+  display: block;
+  font-family: 'Cabin', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--sp-sm);
+}
+blockquote.pull-card p {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
 /* Split layout: text beside painting */
 .split { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--sp-xl); align-items: start; }
 @media (max-width: 760px) { .split { grid-template-columns: 1fr; gap: var(--sp-lg); } }
