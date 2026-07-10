@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css?v=428b5de871">
+<link rel="stylesheet" href="styles.css?v=c6c9bf4e96">
 </head>
 <body>
 
@@ -50,7 +50,7 @@
 <section>
   <div class="measure">
     <p class="form-note" id="sent-note" style="display:none; font-size: 1rem; color: var(--success); margin-bottom: var(--sp-lg)">Thank you &ndash; your message has been sent to the project team.</p>
-    <form class="contact-form" id="contact-form" method="POST">
+    <form class="contact-form" id="contact-form" method="POST" action="https://api.web3forms.com/submit">
       <label>
         <span class="form-label">Your name</span>
         <input type="text" name="name" autocomplete="name" required>
@@ -67,15 +67,16 @@
         <span class="form-label">Your message</span>
         <textarea name="message" rows="8" required></textarea>
       </label>
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-      <input type="hidden" name="_subject" id="cf-subject-hidden" value="Rediscovering Victorian Women Travellers">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_next" value="https://dml0wb.github.io/victorianwomentravellers/contact.html?sent=1">
+      <input type="hidden" name="access_key" value="80db517c-70c5-4d0f-a036-b04b8b09455b">
+      <input type="hidden" name="subject" id="cf-subject-hidden" value="Rediscovering Victorian Women Travellers">
+      <input type="hidden" name="from_name" value="Victorian Women Travellers website">
+      <input type="hidden" name="redirect" value="https://dml0wb.github.io/victorianwomentravellers/contact.html?sent=1">
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="actions">
         <button class="btn btn-primary" type="submit">Send</button>
       </div>
       <p class="form-note">Your message goes directly to the project team. We use your email address only to reply.</p>
+      <p class="form-note" id="err-note" style="display:none; font-size:1rem; color: var(--error, #a4243b); margin-top: var(--sp-md)">Sorry &ndash; the message couldn&rsquo;t be sent just now. Please <a id="err-mailto" href="#">email the project team directly</a> instead.</p>
     </form>
   </div>
 </section>
@@ -98,18 +99,61 @@
 </footer>
 
 <script>
-  // The form posts to a relay service that emails the team.
-  // Addresses are assembled only at send time, never present in the page source.
+  // The form posts to Web3Forms, which emails the team. The reply-to address the
+  // team writes back from is assembled only in script, never present in page source.
   (function () {
     var form = document.getElementById('contact-form');
-    form.addEventListener('submit', function () {
-      var u1 = ['w', 'bainbridge'].join('.') + '@' + ['herts', 'ac', 'uk'].join('.');
-      form.action = 'https://formsubmit.co/' + u1;
-      var subj = document.getElementById('cf-subject').value.trim();
-      if (subj) document.getElementById('cf-subject-hidden').value = 'Travellers website: ' + subj;
+    var sentNote = document.getElementById('sent-note');
+    var errNote = document.getElementById('err-note');
+    var visibleSubject = document.getElementById('cf-subject');
+    var hiddenSubject = document.getElementById('cf-subject-hidden');
+
+    // Assemble the direct-email fallback link without exposing the address in markup.
+    var addr = ['w', 'bainbridge'].join('.') + '@' + ['herts', 'ac', 'uk'].join('.');
+    var mailto = document.getElementById('err-mailto');
+    if (mailto) mailto.href = 'mailto:' + addr + '?subject=' + encodeURIComponent('Victorian Women Travellers website');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (errNote) errNote.style.display = 'none';
+
+      var subj = visibleSubject ? visibleSubject.value.trim() : '';
+      hiddenSubject.value = subj ? 'Travellers website: ' + subj : 'Rediscovering Victorian Women Travellers';
+
+      var btn = form.querySelector('button[type=submit]');
+      var prevLabel = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+      function fail() {
+        if (btn) { btn.disabled = false; btn.textContent = prevLabel; }
+        if (errNote) errNote.style.display = 'block';
+      }
+
+      var controller = new AbortController();
+      var timer = setTimeout(function () { controller.abort(); }, 15000);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form),
+        signal: controller.signal
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          clearTimeout(timer);
+          if (json && json.success) {
+            form.style.display = 'none';
+            sentNote.style.display = 'block';
+            sentNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            fail();
+          }
+        })
+        .catch(function () { clearTimeout(timer); fail(); });
     });
+
     if (new URLSearchParams(location.search).get('sent') === '1') {
-      document.getElementById('sent-note').style.display = 'block';
+      sentNote.style.display = 'block';
       form.style.display = 'none';
     }
   })();

@@ -288,6 +288,10 @@ figure.painting figcaption {
 figure.painting img { cursor: zoom-in; }
 figure.painting img:hover { opacity: 0.93; }
 
+/* A single figure set within a prose column spans that column. */
+.measure > figure.painting { margin: var(--sp-lg) 0 0; }
+.measure > figure.painting img { width: 100%; height: auto; display: block; }
+
 /* Lightbox */
 .lightbox {
   position: fixed;
