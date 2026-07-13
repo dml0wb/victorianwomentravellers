@@ -132,11 +132,11 @@ figure.painting img:focus-visible,
     linear-gradient(
       to bottom,
       rgba(51, 42, 38, 0.08) 0%,
-      rgba(250, 247, 241, 0) 28%,
-      rgba(250, 247, 241, 0.55) 46%,
-      rgba(250, 247, 241, 0.82) 60%,
-      rgba(250, 247, 241, 0.94) 74%,
-      var(--paper) 90%
+      rgba(250, 247, 241, 0) 40%,
+      rgba(250, 247, 241, 0.42) 58%,
+      rgba(250, 247, 241, 0.80) 72%,
+      rgba(250, 247, 241, 0.94) 85%,
+      var(--paper) 100%
     ),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/></svg>");
 }
@@ -163,7 +163,7 @@ figure.painting img:focus-visible,
    halos (both rejected 2026-07-07, they draw fog lines and glows). The hero
    kicker runs a size up in a deepened red so it cannot merge with the map's
    own red lettering. */
-@media (min-width: 1001px) { .hero-text { bottom: 84px; } }
+@media (min-width: 1001px) { .hero-text { bottom: 40px; } }
 .hero-text .kicker { font-size: 0.95rem; letter-spacing: 0.18em; color: #7c2f22; }
 /* Keep each institution on one line, and on phones stack them (dropping the
    middot) so the credit never wraps mid-name or orphans the separator
