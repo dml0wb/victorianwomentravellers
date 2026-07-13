@@ -111,13 +111,18 @@ figure.painting img:focus-visible,
 }
 
 /* Graduated map hero (homepage): Stieler 1895, dissolving into the paper */
-.hero-visual { position: relative; height: 72vh; min-height: 480px; overflow: hidden; }
-@media (max-width: 700px) { .hero-visual { height: 52vh; min-height: 360px; } }
+.hero-visual { position: relative; height: clamp(480px, 72vh, 660px); overflow: hidden; }
+@media (max-width: 700px) { .hero-visual { height: clamp(360px, 52vh, 460px); } }
 .hero-visual picture { display: contents; }
 .hero-visual img {
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center top;
+  /* Frame the centre of the Johnston detail, not its top: this brings
+     Jerusalem (in the pale band) and the Dead Sea into view instead of
+     cropping them off. object-position by percentage keeps the SAME slice of
+     the map on every screen size, so the framing is uniform across browsers
+     (William, 2026-07-13). */
+  object-position: center 42%;
 }
 .hero-visual::after {
   content: "";
@@ -160,6 +165,14 @@ figure.painting img:focus-visible,
    own red lettering. */
 @media (min-width: 1001px) { .hero-text { bottom: 84px; } }
 .hero-text .kicker { font-size: 0.95rem; letter-spacing: 0.18em; color: #7c2f22; }
+/* Keep each institution on one line, and on phones stack them (dropping the
+   middot) so the credit never wraps mid-name or orphans the separator
+   (William's iPhone, 2026-07-13). */
+.hero-text .kicker .inst { white-space: nowrap; }
+@media (max-width: 560px) {
+  .hero-text .kicker .kicker-sep { display: none; }
+  .hero-text .kicker .inst { display: block; }
+}
 /* The hero's source credit lives at the foot of the page (William's call,
    2026-07-07), quieter than the footer's own lines. */
 .footer-credit { font-size: 0.72rem; opacity: 0.85; }
@@ -379,7 +392,10 @@ figure.painting img:hover { opacity: 0.93; }
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 500;
+  /* Above the sticky nav (z 1100) and skip-link (z 1200); at z 500 the nav
+     painted over the overlay and swallowed the close button near the top
+     edge (seen on Stefano's screen 2026-07-13). */
+  z-index: 2000;
   background: rgba(51, 42, 38, 0.94);
   display: flex;
   align-items: center;
@@ -618,8 +634,14 @@ figure.painting img:hover { opacity: 0.93; }
 .station-tip img { width: 180px; height: auto; margin-top: 6px; }
 .station-tip .tip-caption { font-size: 0.7rem; color: #75655d; margin-top: 4px; max-width: 180px; white-space: normal; }
 
-/* Team */
-.team { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: var(--sp-lg); }
+/* Team: exactly four people, so fix the column count rather than letting
+   auto-fit wrap to an unbalanced 3+1 on wide screens (on a large viewport the
+   6vw hero padding hits its 96px cap and narrows the content column, so
+   auto-fit dropped to three columns - seen on Stefano's screen 2026-07-13).
+   Four across on desktop, 2x2 on tablet, single column on phones. */
+.team { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-lg); }
+@media (max-width: 1040px) { .team { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 460px) { .team { grid-template-columns: 1fr; } }
 .person { border-top: 2px solid var(--ink); padding-top: var(--sp-md); }
 .person h3 { font-size: 1.3rem; margin-bottom: var(--sp-xs); }
 /* A linked name keeps the ink of its unlinked neighbours, with a quiet
