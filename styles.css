@@ -623,6 +623,10 @@ figure.painting img:hover { opacity: 0.93; }
   border: 1px solid var(--rule);
   font-family: 'Cabin', sans-serif;
   padding: var(--sp-sm);
+  /* Cap the tip's overall size so even the longest caption (Baalbek) stays
+     short enough to fit above or below any marker without spilling past the
+     map's top or bottom edge, at any zoom (William, 2026-07-13). */
+  max-width: 210px;
 }
 .station-tip .tip-place {
   font-weight: 700;
@@ -634,8 +638,11 @@ figure.painting img:hover { opacity: 0.93; }
 /* Keep illustrated tips compact so they fit above or below a marker without
    overflowing the map's top or bottom edge (paired with placeTip's two-sided
    room check). */
-.station-tip img { width: 150px; height: auto; margin-top: 6px; }
-.station-tip .tip-caption { font-size: 0.7rem; color: #75655d; margin-top: 4px; max-width: 150px; white-space: normal; }
+/* Fixed thumbnail height (cover-cropped) so a tall portrait plate like Baalbek
+   can't make the tip taller than the space beside a marker - the real cause of
+   the clipping. Uniform peek across every station. */
+.station-tip img { width: 172px; height: 104px; object-fit: cover; object-position: center; margin-top: 6px; }
+.station-tip .tip-caption { font-size: 0.7rem; color: #75655d; margin-top: 4px; max-width: 194px; white-space: normal; }
 
 /* Team: exactly four people, so fix the column count rather than letting
    auto-fit wrap to an unbalanced 3+1 on wide screens (on a large viewport the
