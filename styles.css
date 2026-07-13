@@ -631,8 +631,11 @@ figure.painting img:hover { opacity: 0.93; }
   text-transform: uppercase;
 }
 .station-tip .tip-place span { color: #8e3b2f; font-weight: 500; margin-left: 6px; }
-.station-tip img { width: 180px; height: auto; margin-top: 6px; }
-.station-tip .tip-caption { font-size: 0.7rem; color: #75655d; margin-top: 4px; max-width: 180px; white-space: normal; }
+/* Keep illustrated tips compact so they fit above or below a marker without
+   overflowing the map's top or bottom edge (paired with placeTip's two-sided
+   room check). */
+.station-tip img { width: 150px; height: auto; margin-top: 6px; }
+.station-tip .tip-caption { font-size: 0.7rem; color: #75655d; margin-top: 4px; max-width: 150px; white-space: normal; }
 
 /* Team: exactly four people, so fix the column count rather than letting
    auto-fit wrap to an unbalanced 3+1 on wide screens (on a large viewport the
