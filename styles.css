@@ -627,7 +627,12 @@ figure.painting img:hover { opacity: 0.93; }
      short enough to fit above or below any marker without spilling past the
      map's top or bottom edge, at any zoom (William, 2026-07-13). */
   max-width: 210px;
+  /* Leaflet forces tooltips to white-space:nowrap, which pushes a long place
+     name (NORTON, LETCHWORTH) past the right edge of the box. Let everything
+     wrap inside the box instead. */
+  white-space: normal;
 }
+.station-tip .tip-place { white-space: normal; overflow-wrap: break-word; }
 .station-tip .tip-place {
   font-weight: 700;
   font-size: 0.8rem;
