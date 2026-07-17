@@ -232,6 +232,13 @@ h1 {
 .btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #faf7f1; }
 .btn-secondary { background: transparent; color: var(--ink); }
 .btn-secondary:hover { background: var(--ink); color: var(--paper); }
+/* The map's three framings behave as a set: the one in view stays filled. */
+.btn.is-active,
+.btn.is-active:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
 .btn-disabled {
   background: transparent;
   color: var(--muted);

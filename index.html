@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<link rel="stylesheet" href="styles.css?v=5943fccc5e">
+<link rel="stylesheet" href="styles.css?v=fe2dd273bf">
 </head>
 <body>
 
@@ -93,9 +93,9 @@
   <h2>The Journey</h2>
   <p class="measure">From Croydon and Melbourne to Rome and Pimlico, through the streets of Jerusalem and the ruins of Baalbek, and home at last to a cottage at Norton, on the edge of Letchworth &ndash; where their story and their pictures became part of Hertfordshire&rsquo;s own. Float over the map&rsquo;s stations to see the places through the two women&rsquo;s eyes &ndash; or click a date on the timeline below and the map will take you there.</p>
   <div class="map-controls">
-    <button class="btn btn-secondary btn-sm" id="view-east" type="button">Europe &amp; the East</button>
-    <button class="btn btn-secondary btn-sm" id="view-levant" type="button">Palestine &amp; Syria</button>
-    <button class="btn btn-secondary btn-sm" id="view-world" type="button">The whole journey</button>
+    <button class="btn btn-secondary btn-sm" id="view-east" type="button" aria-pressed="false">Europe &amp; the East</button>
+    <button class="btn btn-secondary btn-sm" id="view-levant" type="button" aria-pressed="false">Palestine &amp; Syria</button>
+    <button class="btn btn-secondary btn-sm" id="view-world" type="button" aria-pressed="false">The whole journey</button>
   </div>
   <div id="map"></div>
   <div class="timeline-wrap">
@@ -471,20 +471,35 @@
     .map(function (s) { return [s.lat, s.lng]; }));
   // Default framing: Europe & the East on desktop; on small screens that
   // span reads as a smear, so the project's focus (Palestine & Syria) leads.
+  // The framing in view keeps its button filled, so the set reads as a choice.
+  var viewButtons = document.querySelectorAll('.map-controls .btn');
+  function markView(id) {
+    viewButtons.forEach(function (b) {
+      var on = b.id === id;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
   if (window.matchMedia('(max-width: 700px)').matches) {
     map.fitBounds(levantBounds, { padding: [45, 45] });
+    markView('view-levant');
   } else {
     map.fitBounds(eastBounds, { padding: [30, 30] });
+    markView('view-east');
   }
 
   document.getElementById('view-east').addEventListener('click', function () {
     map.flyToBounds(eastBounds, { padding: [30, 30], duration: 2.2 });
+    markView('view-east');
   });
   document.getElementById('view-levant').addEventListener('click', function () {
     map.flyToBounds(levantBounds, { padding: [45, 45], duration: 2.2 });
+    markView('view-levant');
   });
   document.getElementById('view-world').addEventListener('click', function () {
     map.flyToBounds(worldBounds, { padding: [30, 30], duration: 2.2 });
+    markView('view-world');
   });
 
   // Click a timeline station (or focus it and press Enter/Space): the map
@@ -497,6 +512,7 @@
       if (!m) return;
       document.querySelectorAll('.station-h.active').forEach(function (c) { c.classList.remove('active'); });
       el.classList.add('active');
+      markView(null);
       document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
       map.flyTo(m.getLatLng(), 7, { duration: 2.8, easeLinearity: 0.1 });
       setTimeout(function () { m.openTooltip(); }, 2900);
