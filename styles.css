@@ -653,11 +653,10 @@ figure.painting img:hover { opacity: 0.93; }
 /* Fixed thumbnail height (cover-cropped) so a tall portrait plate like Baalbek
    can't make the tip taller than the space beside a marker - the real cause of
    the clipping. Uniform peek across every station. */
-.station-tip img { width: 172px; height: 104px; object-fit: cover; object-position: center; margin-top: 6px; }
-/* Baalbek's plate is a tall portrait; a centred crop of the fixed-height box
-   decapitates the temple. Keep the height but anchor to the top so the
-   entablature and capitals stay in frame. */
-.station-tip img[src*="baalbek"] { object-position: top center; }
+/* Most station images are tall portraits; a centred crop of the fixed-height
+   box decapitates faces and temple capitals. Anchor to the top so heads and
+   subjects stay in frame. Landscapes crop at the sides, so top is harmless. */
+.station-tip img { width: 172px; height: 104px; object-fit: cover; object-position: top center; margin-top: 6px; }
 .station-tip .tip-caption { font-size: 0.7rem; color: #75655d; margin-top: 4px; max-width: 194px; white-space: normal; }
 
 /* Team: exactly four people, so fix the column count rather than letting
