@@ -450,13 +450,31 @@
     if (tt.options.direction !== dir) { tt.options.direction = dir; tt.update(); }
   }
 
+  // placeTip only chooses a side; the tallest tips (Melbourne's Summers caption
+  // is the longest of all) can still spill an edge, hiding the accession line.
+  // Pan the map by the exact overflow so the whole tip sits inside the frame.
+  function nudgeIntoView(m) {
+    var tt = m.getTooltip();
+    if (!tt || !tt._container) return;
+    var mapRect = map.getContainer().getBoundingClientRect();
+    var tipRect = tt._container.getBoundingClientRect();
+    var margin = 12, dx = 0, dy = 0;
+    if (tipRect.left < mapRect.left + margin) dx = tipRect.left - mapRect.left - margin;
+    else if (tipRect.right > mapRect.right - margin) dx = tipRect.right - mapRect.right + margin;
+    if (tipRect.top < mapRect.top + margin) dy = tipRect.top - mapRect.top - margin;
+    else if (tipRect.bottom > mapRect.bottom - margin) dy = tipRect.bottom - mapRect.bottom + margin;
+    if (dx || dy) map.panBy([dx, dy], { animate: true, duration: 0.4 });
+  }
+
   Object.keys(markers).forEach(function (key) {
     var m = markers[key];
     m.on('tooltipopen', function () {
       placeTip(m);
       var img = m.getTooltip()._container.querySelector('img');
       if (img && !img.complete) {
-        img.addEventListener('load', function () { placeTip(m); }, { once: true });
+        img.addEventListener('load', function () { placeTip(m); nudgeIntoView(m); }, { once: true });
+      } else {
+        nudgeIntoView(m);
       }
     });
     m.on('click', function () { m.openTooltip(); syncTimeline(key); });
